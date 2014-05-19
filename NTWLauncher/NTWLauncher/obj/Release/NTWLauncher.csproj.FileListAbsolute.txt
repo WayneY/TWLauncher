@@ -1,0 +1,12 @@
+D:\WorkSpace\NTWLauncher\NTWLauncher\NTWLauncher\bin\Release\NTWLauncher.exe.config
+D:\WorkSpace\NTWLauncher\NTWLauncher\NTWLauncher\bin\Release\NTWLauncher.exe
+D:\WorkSpace\NTWLauncher\NTWLauncher\NTWLauncher\bin\Release\NTWLauncher.pdb
+D:\WorkSpace\NTWLauncher\NTWLauncher\NTWLauncher\obj\Release\MainWindow.baml
+D:\WorkSpace\NTWLauncher\NTWLauncher\NTWLauncher\obj\Release\MainWindow.g.cs
+D:\WorkSpace\NTWLauncher\NTWLauncher\NTWLauncher\obj\Release\App.g.cs
+D:\WorkSpace\NTWLauncher\NTWLauncher\NTWLauncher\obj\Release\NTWLauncher_MarkupCompile.cache
+D:\WorkSpace\NTWLauncher\NTWLauncher\NTWLauncher\obj\Release\NTWLauncher.g.resources
+D:\WorkSpace\NTWLauncher\NTWLauncher\NTWLauncher\obj\Release\NTWLauncher.Properties.Resources.resources
+D:\WorkSpace\NTWLauncher\NTWLauncher\NTWLauncher\obj\Release\NTWLauncher.csproj.GenerateResource.Cache
+D:\WorkSpace\NTWLauncher\NTWLauncher\NTWLauncher\obj\Release\NTWLauncher.exe
+D:\WorkSpace\NTWLauncher\NTWLauncher\NTWLauncher\obj\Release\NTWLauncher.pdb

@@ -1,0 +1,22 @@
+﻿<Window x:Class="NTWLauncher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        WindowStyle="None"
+        MouseDown="Window_MouseDown"
+        WindowStartupLocation="CenterScreen"
+        Title="Napoleon:Total War Launcher" Height="313" Width="500"
+        Icon="pack://application:,,,/Resources/favicon.ico"
+        Closing="Window_Closing">
+    <Window.Background>
+        <ImageBrush ImageSource="Resources/Napoleon.png"/>
+    </Window.Background>
+    <Grid RenderTransformOrigin="0.596,0.502" Margin="0,0,0,0" Width="500" Height="313">
+        <Grid.Background>
+            <ImageBrush ImageSource="Resources/Napoleon.png"/>
+        </Grid.Background>
+        <Button Content="" HorizontalAlignment="Center" Margin="182.869,211.369,190.342,77.947" VerticalAlignment="Center" Width="127" Height="23.684" Click="CHN_Click" Opacity="0"/>
+        <Button Content="" HorizontalAlignment="Center" Margin="325.185,211.369,49.342,77.947" VerticalAlignment="Center" Width="127" Height="23.684" Click="ENG_Click" Opacity="0"/>
+        <Button Content="" HorizontalAlignment="Center" Margin="50.764,211.369,322.236,77.947" VerticalAlignment="Center" Width="127" Height="23.684" Click="CHECK_Click" Opacity="0"/>
+        <Button Content="" HorizontalAlignment="Center" Margin="400.546,45.16,62.452,233.407" VerticalAlignment="Center" Width="37.002" Height="34.433" RenderTransformOrigin="0.281,0.462" Click="Exit_Click" Opacity="0"/>
+    </Grid>
+</Window>

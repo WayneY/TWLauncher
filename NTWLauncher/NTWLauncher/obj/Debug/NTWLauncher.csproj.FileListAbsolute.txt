@@ -1,0 +1,13 @@
+D:\WorkSpace\NTWLauncher\NTWLauncher\NTWLauncher\bin\Debug\NTWLauncher.exe.config
+D:\WorkSpace\NTWLauncher\NTWLauncher\NTWLauncher\obj\Debug\NTWLauncher.csprojResolveAssemblyReference.cache
+D:\WorkSpace\NTWLauncher\NTWLauncher\NTWLauncher\obj\Debug\MainWindow.baml
+D:\WorkSpace\NTWLauncher\NTWLauncher\NTWLauncher\obj\Debug\MainWindow.g.cs
+D:\WorkSpace\NTWLauncher\NTWLauncher\NTWLauncher\obj\Debug\App.g.cs
+D:\WorkSpace\NTWLauncher\NTWLauncher\NTWLauncher\obj\Debug\NTWLauncher_MarkupCompile.cache
+D:\WorkSpace\NTWLauncher\NTWLauncher\NTWLauncher\obj\Debug\NTWLauncher.g.resources
+D:\WorkSpace\NTWLauncher\NTWLauncher\NTWLauncher\obj\Debug\NTWLauncher.Properties.Resources.resources
+D:\WorkSpace\NTWLauncher\NTWLauncher\NTWLauncher\obj\Debug\NTWLauncher.csproj.GenerateResource.Cache
+D:\WorkSpace\NTWLauncher\NTWLauncher\NTWLauncher\bin\Debug\NTWLauncher.exe
+D:\WorkSpace\NTWLauncher\NTWLauncher\NTWLauncher\bin\Debug\NTWLauncher.pdb
+D:\WorkSpace\NTWLauncher\NTWLauncher\NTWLauncher\obj\Debug\NTWLauncher.exe
+D:\WorkSpace\NTWLauncher\NTWLauncher\NTWLauncher\obj\Debug\NTWLauncher.pdb
