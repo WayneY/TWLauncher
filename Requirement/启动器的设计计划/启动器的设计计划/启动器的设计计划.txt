@@ -1,0 +1,37 @@
+目前正版自带官方的MOD管理器，我们的汉化运行一切正常。但盗版必须使用TWC开发的ModManager才能加载mod pack格式的MOD，否则就会跳出，因此也让我们一直被黑（反盗版的又一条罪状，黄龙罪大恶极-_-|||）。因此有必要让我们的汉化启动器兼容ModManager，或者本身集成一个MOD管理器功能，参考NMM（Nexus Mod Manager）等案例，显然在汉化启动里集成一个MOD管理的好处更多，何况同样的程序也能运用在帝国、拿破仑和幕府2上，属于多平台开发。
+
+
+全战MOD原理和ModManager功能解析如下
+
+1、mod的pack文件分成mod pack和movie pack格式。两种pack都应该放置在 /data/ 目录
+
+其中movie pack会随着游戏自动起作用
+
+而mod pack必须填写设置脚本 user.script.txt 才能起作用
+
+user.script.txt文件在
+
+C:\Users\AppData\Roaming\The Creative Assembly\Rome2\scripts\
+
+脚本格式是
+
+mod "bloodyui.pack";
+mod "kessen.pack";
+
+一个MOD一行，处于上方的MOD会自动覆盖下方MOD的同类内容
+
+
+2、ModManager的功能可以总结为以下几点
+
+1）自动检测data目录内mod pack属性的文件，列出文件名供用户操作
+2）用户在ModManager勾选要使用的mod pack，调节载入顺序
+3）按下“Launch”后，在user.script.txt写入结果，然后启动Rome2.exe
+
+4）能够自动检测出pack内的同名文件，然后列出有冲突文件的文件名
+5）能够直接修改mod pack内有冲突的同名文件，进行删除，然后保存
+6）能够将movie pack转换成mod pack格式
+7）能够一键自动删除user.script.txt，并把data内的mod pack转移到my mod目录
+
+目前看来，4）、5）、6）的功能也许需要研究PackFileManager的源码才能实现，而其他几类功能应该可以集成到汉化启动器上
+
+3、汉化启动器的格式可以模仿官方启动器，自带带MOD简图。（MOD pack和MOD图片同名）
