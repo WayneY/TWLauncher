@@ -22,3 +22,6 @@ C:\Users\Wei\Documents\Personal\WorkSpace\R2TWLauncher\R2TWLauncher\R2TWLauncher
 C:\Users\Wei\Documents\Personal\WorkSpace\R2TWLauncher\R2TWLauncher\R2TWLauncher\obj\Release\R2TWLauncher.g.resources
 C:\Users\Wei\Documents\Personal\WorkSpace\R2TWLauncher\R2TWLauncher\R2TWLauncher\obj\Release\R2TWLauncher.Properties.Resources.resources
 C:\Users\Wei\Documents\Personal\WorkSpace\R2TWLauncher\R2TWLauncher\R2TWLauncher\obj\Release\R2TWLauncher.csproj.GenerateResource.Cache
+C:\Users\yangwei.HS\Documents\GitHub\TWLauncher\R2TWLauncher\R2TWLauncher\bin\Release\R2TWLauncher.exe.config
+C:\Users\yangwei.HS\Documents\GitHub\TWLauncher\R2TWLauncher\R2TWLauncher\obj\Release\R2TWLauncher.exe
+C:\Users\yangwei.HS\Documents\GitHub\TWLauncher\R2TWLauncher\R2TWLauncher\obj\Release\R2TWLauncher.pdb
