@@ -1,15 +1,7 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<<<<<<< HEAD
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
-=======
 <SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
->>>>>>> origin/master
   <Profiles>
     <Profile Name="(Default)" />
   </Profiles>
   <Settings />
-<<<<<<< HEAD
 </SettingsFile>
-=======
-</SettingsFile>
->>>>>>> origin/master

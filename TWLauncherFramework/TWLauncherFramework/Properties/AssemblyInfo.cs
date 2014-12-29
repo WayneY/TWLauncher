@@ -1,13 +1,8 @@
 ﻿using System.Reflection;
-<<<<<<< HEAD
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-=======
 using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows;
->>>>>>> origin/master
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -26,10 +21,6 @@ using System.Windows;
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
 
-<<<<<<< HEAD
-// The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("dd022338-0d5c-401d-b89e-134eb102e71c")]
-=======
 //In order to begin building localizable applications, set 
 //<UICulture>CultureYouAreCodingWith</UICulture> in your .csproj file
 //inside a <PropertyGroup>.  For example, if you are using US english
@@ -49,7 +40,6 @@ using System.Windows;
     // app, or any theme specific resource dictionaries)
 )]
 
->>>>>>> origin/master
 
 // Version information for an assembly consists of the following four values:
 //
