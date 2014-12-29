@@ -16,11 +16,13 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Diagnostics;
 
+
 namespace R2TWLauncher
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    /// 
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -33,25 +35,38 @@ namespace R2TWLauncher
             Process[] pname = Process.GetProcessesByName("Rome2");
             if (pname.Length > 0)
             {
-                MessageBox.Show("Rome2TW is already running!");
+                System.Windows.MessageBox.Show("Rome2TW is already running!");
             }
             else
             {
                 if (!Directory.Exists(".\\clanlong"))
                 {
-                    MessageBox.Show("Vital File does not exist!!");
+                    System.Windows.MessageBox.Show("汉化文件缺失!!");
                     Environment.Exit(0);
                 }
+            checkmd5:
                 if (!md5check(".\\binkw32.dll", "04B064676A2D466887581EA3FBE327EF"))
                 {
-                    if (ReplaceFile(".\\clanlong\\clanlong_2.bin", ".\\binkw32.dll"))
+                    if (File.Exists(".\\binkw32_ori.dll"))
                     {
-                        Process.Start(".\\Rome2.exe");
+                        while (isFileLocked(".\\binkw32_ori.dll"))
+                        {
+                            Thread.Sleep(1000);
+                        }
+                        ReplaceFile(".\\binkw32_ori.dll", ".\\binkw32.dll");
+                        File.Delete(".\\binkw32_ori.dll");
+                        goto checkmd5;
+                    }
+                    else
+                    {
+                        System.Windows.MessageBox.Show("缺少原生binkw32.dll！");
+                        Environment.Exit(0);
                     }
                 }
                 else
                 {
                     Process.Start(".\\Rome2.exe");
+                    this.WindowState = WindowState.Minimized;
                 }
             }
         }
@@ -61,18 +76,37 @@ namespace R2TWLauncher
             Process[] pname = Process.GetProcessesByName("Rome2");
             if (pname.Length > 0)
             {
-                MessageBox.Show("Rome2TW is already running！");
+                System.Windows.MessageBox.Show("Rome2TW is already running！");
             }
             else
             {
                 if (!Directory.Exists(".\\clanlong"))
                 {
-                    MessageBox.Show("Vital File does not exist!!");
+                    System.Windows.MessageBox.Show("汉化文件缺失!!");
                     Environment.Exit(0);
                 }
-                if (ReplaceFile(".\\clanlong\\clanlong_1.bin", ".\\binkw32.dll") && ReplaceFile(".\\clanlong\\clanlong_3.bin", ".\\Loader.dll"))
-                {
+                try{
+                    if (!File.Exists(".\\binkw32_ori.dll")){
+                        while (isFileLocked(".\\binkw32.dll"))
+                        {
+                            Thread.Sleep(1000);
+                        }
+                        ReplaceFile(".\\binkw32.dll", ".\\binkw32_ori.dll");
+                    }
+                    if (!md5check(".\\binkw32_ori.dll", "04B064676A2D466887581EA3FBE327EF"))
+                    {
+                        System.Windows.MessageBox.Show("缺少原生binkw32.dll！");
+                        Environment.Exit(0);
+                    }
+                    ReplaceFile(".\\clanlong\\clanlong_1.bin", ".\\binkw32.dll");
+                    ReplaceFile(".\\clanlong\\clanlong_2.bin", ".\\Loader.dll");
                     Process.Start(".\\Rome2.exe");
+                    this.WindowState = WindowState.Minimized;
+                }
+                catch (IOException x)
+                {
+                    System.Windows.MessageBox.Show(x.Message.ToString());
+                    Environment.Exit(0);
                 }
             }
         }
@@ -139,7 +173,7 @@ namespace R2TWLauncher
             }
             catch (IOException x)
             {
-                MessageBox.Show(x.Message.ToString());
+                System.Windows.MessageBox.Show(x.Message.ToString());
                 return false;
             }
         }
@@ -167,10 +201,18 @@ namespace R2TWLauncher
 
                 if (!md5check(".\\binkw32.dll", "04B064676A2D466887581EA3FBE327EF"))
                 {
-                    ReplaceFile(".\\clanlong\\clanlong_2.bin", ".\\binkw32.dll");
+                    File.Delete(".\\binkw32.dll");
+                    if (File.Exists(".\\binkw32_ori.dll"))
+                    {
+                        while (isFileLocked(".\\binkw32_ori.dll"))
+                        {
+                            Thread.Sleep(1000);
+                        }
+                        ReplaceFile(".\\binkw32_ori.dll", ".\\binkw32.dll");
+                        File.Delete(".\\binkw32_ori.dll");
+                    }
                 }
             }
-
             if (File.Exists(".\\Loader.dll"))
             {
                 File.Delete(".\\Loader.dll");
