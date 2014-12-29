@@ -2,32 +2,73 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="TWLauncherFramework.MainWindow"
+        WindowStyle="None"
+        MouseDown="Window_MouseDown"
+        Closing="Window_Closing"
         Title="MainWindow" Height="650" Width="800">
-    <Grid Margin="0,0,-8,-7">
-        <Grid.Background>
-            <ImageBrush ImageSource="pic/background.png"/>
-        </Grid.Background>
-        <Button x:Name="Chinese_start" HorizontalAlignment="Left" Margin="449,22,0,0" VerticalAlignment="Top" Width="226" Height="73" Click="Chinese_start_Click">
+    <Window.Background>
+        <ImageBrush ImageSource="pic/background.png"/>
+    </Window.Background>
+    <Window.Resources>
+        <Style x:Key="styleCustomCheckBox" TargetType="{x:Type CheckBox}">
+            <Setter Property="FontFamily" Value="Segoe Script"/>
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type CheckBox}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image x:Name="imageCheckBox" Source="pic/check.png" Width="21" Height="20" HorizontalAlignment="Left" Margin="5,0,0,0"></Image>
+                            <ContentPresenter Margin="5,10,0,0"/>
+                        </StackPanel>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="imageCheckBox" Property="Source" Value="pic/checked.png"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="styleCustomButton" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+         </Style>
+    </Window.Resources>
+    <Grid Margin="0,0,0,0">
+        <Button x:Name="Chinese_start" HorizontalAlignment="Left" Margin="449,22,0,0" VerticalAlignment="Top" Width="226" Height="73" Click="Chinese_start_Click" Style="{StaticResource styleCustomButton}">
             <Button.Background>
                 <ImageBrush ImageSource="pic/button_1.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="English_start" HorizontalAlignment="Left" Margin="449,109,0,0" VerticalAlignment="Top" Width="226" Height="73" Click="English_start_Click">
+        <Button x:Name="English_start" HorizontalAlignment="Left" Margin="449,109,0,0" VerticalAlignment="Top" Width="226" Height="73" Click="English_start_Click" Style="{StaticResource styleCustomButton}">
             <Button.Background>
                 <ImageBrush ImageSource="pic/button_2.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Update_check"  HorizontalAlignment="Left" Margin="449,196,0,0" VerticalAlignment="Top" Width="226" Height="73" Click="Update_check_Click">
+        <Button x:Name="Update_check"  HorizontalAlignment="Left" Margin="449,196,0,0" VerticalAlignment="Top" Width="226" Height="73" Click="Update_check_Click" Style="{StaticResource styleCustomButton}">
             <Button.Background>
                 <ImageBrush ImageSource="pic/button_3.png"/>
             </Button.Background>
         </Button>
-        <Grid Name="ImageGrid" HorizontalAlignment="Left" Height="208" Margin="139,329,0,0" VerticalAlignment="Top" Width="516">
+        <Grid Name="ImageGrid" Height="210" Margin="130,315,137,0" VerticalAlignment="Top" Visibility="Hidden">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="258"/>
                 <ColumnDefinition Width="258"/>
             </Grid.ColumnDefinitions>
-            <ItemsControl Grid.Column="0" Name="first_mods_in_image"  HorizontalAlignment="Left" Background="#FF1C1C1C" Margin="0,-23,7,23" Width="251">
+            <ItemsControl Grid.Column="0" Name="first_mods_in_image"  HorizontalAlignment="Left" Background="#FF1C1C1C" Width="251">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -35,13 +76,13 @@
                                 <RowDefinition Height="48"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <CheckBox Grid.Row="0" Margin="5,2,0,0" Name="leftCB"  IsChecked="{Binding isModActive}" Content ="{Binding packname}"/>
+                            <CheckBox Grid.Row="0" Margin="5,2,0,0" Name="leftCB"  IsChecked="{Binding isModActive}" Content ="{Binding packname}" Style="{StaticResource styleCustomCheckBox}" Foreground="White"/>
                             <Image Grid.Row="1"  Name="leftImage"  HorizontalAlignment="Center" Height="145" Margin="0,0,0,0"  Width="251" Source="{Binding img}"/>
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-            <ItemsControl Grid.Column="1"  Name="second_mods_in_image"  HorizontalAlignment="Right" Background="#FF1C1C1C" Margin="0,-23,7,23" Width="251">
+            <ItemsControl Grid.Column="1"  Name="second_mods_in_image"  HorizontalAlignment="Right" Background="#FF1C1C1C" Margin="0,0,0,0" Width="251">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -49,59 +90,64 @@
                                 <RowDefinition Height="48"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <CheckBox Grid.Row="0" Margin="5,2,0,0" Name="rightCB"  IsChecked="{Binding isModActive}" Content="{Binding packname}"/>
+                            <CheckBox Grid.Row="0" Margin="5,2,0,0" Name="rightCB"  IsChecked="{Binding isModActive}" Content="{Binding packname}" Style="{StaticResource styleCustomCheckBox}"/>
                             <Image Grid.Row="1" Name="rightImage" HorizontalAlignment="Center" Height="145" Margin="0,0,0,0"  Width="251" Source="{Binding img}"/>
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </Grid>
-        <Button x:Name="image_show" Content="Show image" HorizontalAlignment="Left" Margin="660,299,0,0" VerticalAlignment="Top" Width="81" Height="25" Click="image_show_Click" RenderTransformOrigin="0.5,0.5">
+        <Button x:Name="image_show" HorizontalAlignment="Left" Margin="648,305,0,0" VerticalAlignment="Top" Width="81" Height="25" Click="image_show_Click" RenderTransformOrigin="0.5,0.5" BorderThickness="0" Style="{StaticResource styleCustomButton}">
             <Button.Background>
-                <ImageBrush ImageSource="pic/list.png">
-                    <ImageBrush.RelativeTransform>
-                        <TransformGroup>
-                            <ScaleTransform ScaleY="-1" ScaleX="-1"/>
-                            <SkewTransform AngleY="0" AngleX="0"/>
-                            <RotateTransform Angle="0"/>
-                            <TranslateTransform Y="22"/>
-                        </TransformGroup>
-                    </ImageBrush.RelativeTransform>
-                </ImageBrush>
+                <ImageBrush ImageSource="pic/list.png" Stretch="UniformToFill" AlignmentY="Top">
+                   </ImageBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="list_show" Content="Show list" HorizontalAlignment="Left" Margin="660,329,0,0" VerticalAlignment="Top" Width="81" Height="25" Click="list_show_Click"/>
-        <Button Name="prev" HorizontalAlignment="Left" Margin="61,405,0,0" VerticalAlignment="Top" Width="18" Height="37" Click="prev_Click">
+        <Button x:Name="list_show"  HorizontalAlignment="Left" Margin="648,330,0,0" VerticalAlignment="Top" Width="81" Height="25" Click="list_show_Click" BorderThickness="0" Style="{StaticResource styleCustomButton}">
+            <Button.Background>
+                <ImageBrush Stretch="UniformToFill" ImageSource="pic/list.png" AlignmentY="Bottom"/>
+            </Button.Background>
+        </Button>
+        <Button Name="prev" HorizontalAlignment="Left" Margin="61,397,0,0" VerticalAlignment="Top" Width="18" Height="37" Click="prev_Click" Visibility="Hidden" Style="{StaticResource styleCustomButton}">
             <Button.Background>
                 <ImageBrush ImageSource="pic/arrow_1.png"/>
             </Button.Background>
         </Button>
-        <Button Name="next" HorizontalAlignment="Left" Margin="717,405,0,0" VerticalAlignment="Top" Width="18" Height="37" Click="next_Click">
+        <Button Name="next" HorizontalAlignment="Left" Margin="707,397,0,0" VerticalAlignment="Top" Width="18" Height="37" Click="next_Click" Visibility="Hidden" Style="{StaticResource styleCustomButton}">
             <Button.Background>
                 <ImageBrush ImageSource="pic/arrow_2.png"/>
             </Button.Background>
         </Button>
-        <ListBox x:Name="Packs" HorizontalAlignment="Left" Height="183" VerticalAlignment="Top" Width="550" Margin="80,510,0,0" Visibility="Hidden">
+        <ListBox x:Name="Packs" HorizontalAlignment="Left" Height="183" VerticalAlignment="Top" Width="550" Margin="95,319,0,0" Visibility="Visible">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
                             <ColumnDefinition Width="100" />
-                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <CheckBox Grid.Column="0" IsChecked="{Binding isModActive}"/>
-                        <TextBlock Grid.Column="1" Text="{Binding packname}" />
+                        <TextBlock Grid.Column="0" Text="{Binding packname}" FontFamily="Segoe Script" FontSize="16"/>
+                        <CheckBox Grid.Column="1" IsChecked="{Binding isModActive}" Style="{StaticResource styleCustomCheckBox}"/>
+                        
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button x:Name="up" Content="Up" HorizontalAlignment="Left" Margin="47,510,0,0" VerticalAlignment="Top" Width="28" Height="47" Click="up_Click" Visibility="Hidden"/>
-        <Button x:Name="down" Content="Down" HorizontalAlignment="Left" Margin="47,638,0,0" VerticalAlignment="Top" Width="28" Height="47" Click="down_Click" Visibility="Hidden"/>
-        <Button x:Name="close_window" HorizontalAlignment="Left" Margin="741,30,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="close_window_Click">
+        <Button x:Name="up" HorizontalAlignment="Left" Margin="69,329,0,0" VerticalAlignment="Top" Width="21" Height="20" Click="up_Click" BorderThickness="0" Style="{StaticResource styleCustomButton}">
+            <Button.Background>
+                <ImageBrush ImageSource="pic/up&amp;down.png" Stretch="UniformToFill" AlignmentY="Top"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="down" HorizontalAlignment="Left" Margin="69,349,0,0" VerticalAlignment="Top" Width="21" Height="20" Click="down_Click" BorderThickness="0" Style="{StaticResource styleCustomButton}">
+            <Button.Background>
+                <ImageBrush ImageSource="pic/up&amp;down.png" Stretch="UniformToFill" AlignmentY="Bottom"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="close_window" HorizontalAlignment="Left" Margin="741,30,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="close_window_Click" Style="{StaticResource styleCustomButton}">
             <Button.Background>
                 <ImageBrush ImageSource="pic/close.png"/>
             </Button.Background>
         </Button>
-
     </Grid>
+
 </Window>

@@ -26,9 +26,10 @@ namespace TWLauncherFramework
     public partial class MainWindow : Window
     {
         ObservableCollection<modPack> mods = new ObservableCollection<modPack>();
-        const string modlistpath = @".\modlist.txt";
+        const string modlistpath = @"%USERPROFILE%\AppData\Roaming\The Creative Assembly\Rome2\scripts\";
         string datapath = Directory.GetCurrentDirectory() + "\\data\\";
         const string blankimage = "pack://application:,,,/pic/blank.png";
+        const string exeName = "Rome2";
         int imageindex = 0;
         public MainWindow()
         {
@@ -113,22 +114,22 @@ namespace TWLauncherFramework
              
             if (mods.Count>1){
                 modPack currentMod = mods[1];
-            if (currentMod != null)
-            {
+                if (currentMod != null)
+                {
 
-                ObservableCollection<modPack> cmod = new ObservableCollection<modPack>();
-                cmod.Add(currentMod);
-                second_mods_in_image.ItemsSource = cmod;
+                    ObservableCollection<modPack> cmod = new ObservableCollection<modPack>();
+                    cmod.Add(currentMod);
+                    second_mods_in_image.ItemsSource = cmod;
+                }
             }
+            else
+            {
+                second_mods_in_image.Visibility = Visibility.Hidden;
             }
         }
 
         private void prev_Click(object sender, RoutedEventArgs e)
         {
-            //leftCB.Visibility = Visibility.Visible;
-            //leftImage.Visibility = Visibility.Visible;
-            //rightCB.Visibility = Visibility.Visible;
-            //rightImage.Visibility = Visibility.Visible;
             first_mods_in_image.Visibility = Visibility.Visible;
             second_mods_in_image.Visibility = Visibility.Visible;
 
@@ -145,9 +146,6 @@ namespace TWLauncherFramework
                 modPack currentMod = mods[imageindex];
                 if (currentMod != null)
                 {
-                 //   rightCB.IsChecked = currentMod.isModActive;
-                    //rightCB.Content = currentMod.packname;
-                    //rightImage.Source = currentMod.img;
                     ObservableCollection<modPack> cmod = new ObservableCollection<modPack>();
                     cmod.Add(currentMod);
                     second_mods_in_image.ItemsSource = cmod;
@@ -160,9 +158,6 @@ namespace TWLauncherFramework
                 modPack currentMod = mods[imageindex];
                 if (currentMod != null)
                 {
-                 //   leftCB.IsChecked = currentMod.isModActive;
-                    //leftCB.Content = currentMod.packname;
-                    //leftImage.Source = currentMod.img;
                     ObservableCollection<modPack> cmod = new ObservableCollection<modPack>();
                     cmod.Add(currentMod);
                     first_mods_in_image.ItemsSource = cmod;
@@ -170,8 +165,6 @@ namespace TWLauncherFramework
             }
             else
             {
-                //leftCB.Visibility = Visibility.Hidden;
-                //leftImage.Visibility = Visibility.Hidden;
                 first_mods_in_image.Visibility = Visibility.Hidden;
             }
 
@@ -180,10 +173,6 @@ namespace TWLauncherFramework
 
         private void next_Click(object sender, RoutedEventArgs e)
         {
-            //leftCB.Visibility = Visibility.Visible;
-            //leftImage.Visibility = Visibility.Visible;
-            //rightCB.Visibility = Visibility.Visible;
-            //rightImage.Visibility = Visibility.Visible;
             first_mods_in_image.Visibility = Visibility.Visible;
             second_mods_in_image.Visibility = Visibility.Visible;
             
@@ -199,9 +188,6 @@ namespace TWLauncherFramework
                 modPack currentMod = mods[imageindex];
                 if (currentMod != null)
                 {
-                 //   leftCB.IsChecked = currentMod.isModActive;
-                    //leftCB.Content = currentMod.packname;
-                    //leftImage.Source = currentMod.img;
                     ObservableCollection<modPack> cmod = new ObservableCollection<modPack>();
                     cmod.Add(currentMod);
                     first_mods_in_image.ItemsSource = cmod;
@@ -214,9 +200,6 @@ namespace TWLauncherFramework
                 modPack currentMod = mods[imageindex];
                 if (currentMod != null)
                 {
-                 //   rightCB.IsChecked = currentMod.isModActive;
-                    //rightCB.Content = currentMod.packname;
-                    //rightImage.Source = currentMod.img;
                     ObservableCollection<modPack> cmod = new ObservableCollection<modPack>();
                     cmod.Add(currentMod);
                     second_mods_in_image.ItemsSource = cmod;
@@ -224,8 +207,6 @@ namespace TWLauncherFramework
             }
             else
             {
-                //rightCB.Visibility = Visibility.Hidden;
-                //rightImage.Visibility = Visibility.Hidden;
                 second_mods_in_image.Visibility = Visibility.Hidden;
             }
         }
@@ -254,7 +235,7 @@ namespace TWLauncherFramework
         private void Chinese_start_Click(object sender, RoutedEventArgs e)
         {
             tools.write_back_to_modlist(modlistpath, mods);
-            Process[] pname = Process.GetProcessesByName("Rome2");
+            Process[] pname = Process.GetProcessesByName(exeName);
             if (pname.Length > 0)
             {
                 System.Windows.MessageBox.Show("Rome2TW is already running！");
@@ -297,7 +278,7 @@ namespace TWLauncherFramework
         private void English_start_Click(object sender, RoutedEventArgs e)
         {
             tools.write_back_to_modlist(modlistpath, mods);
-            Process[] pname = Process.GetProcessesByName("Rome2");
+            Process[] pname = Process.GetProcessesByName(exeName);
             if (pname.Length > 0)
             {
                 System.Windows.MessageBox.Show("Rome2TW is already running!");
@@ -349,10 +330,8 @@ namespace TWLauncherFramework
             Packs.Visibility = Visibility.Hidden;
             up.Visibility = Visibility.Hidden;
             down.Visibility = Visibility.Hidden;
-            //leftImage.Visibility = Visibility.Visible;
-            //rightImage.Visibility = Visibility.Visible;
-            first_mods_in_image.Visibility = Visibility.Visible;
-            second_mods_in_image.Visibility = Visibility.Visible;
+            //first_mods_in_image.Visibility = Visibility.Visible;
+            //second_mods_in_image.Visibility = Visibility.Visible;
             ImageGrid.Visibility = Visibility.Visible;
             prev.Visibility = Visibility.Visible;
             next.Visibility = Visibility.Visible;
@@ -363,8 +342,6 @@ namespace TWLauncherFramework
             Packs.Visibility = Visibility.Visible;
             up.Visibility = Visibility.Visible;
             down.Visibility = Visibility.Visible;
-            //leftImage.Visibility = Visibility.Hidden;
-            //rightImage.Visibility = Visibility.Hidden;
             ImageGrid.Visibility = Visibility.Hidden;
             prev.Visibility = Visibility.Hidden;
             next.Visibility = Visibility.Hidden;
@@ -372,8 +349,53 @@ namespace TWLauncherFramework
 
         private void close_window_Click(object sender, RoutedEventArgs e)
         {
-            tools.write_back_to_modlist(modlistpath, mods);
+            Window_Closing(sender, e);
 
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
+
+        }
+
+        private void Window_Closing(object sender, EventArgs e)
+        {
+            tools.write_back_to_modlist(modlistpath, mods);
+            foreach (Process pname in Process.GetProcessesByName(exeName))
+            {
+                pname.Kill();
+            }
+            foreach (Process pname in Process.GetProcessesByName("launcher"))
+            {
+                pname.Kill();
+            }
+            if (File.Exists(".\\binkw32.dll"))
+            {
+
+                if (!tools.md5check(".\\binkw32.dll", "04B064676A2D466887581EA3FBE327EF"))
+                {
+                    File.Delete(".\\binkw32.dll");
+                    if (File.Exists(".\\binkw32_ori.dll"))
+                    {
+                        while (tools.isFileLocked(".\\binkw32_ori.dll"))
+                        {
+                            Thread.Sleep(1000);
+                        }
+                        tools.ReplaceFile(".\\binkw32_ori.dll", ".\\binkw32.dll");
+                        File.Delete(".\\binkw32_ori.dll");
+                    }
+                }
+            }
+            if (File.Exists(".\\Loader.dll"))
+            {
+                File.Delete(".\\Loader.dll");
+            }
+            //Application.Current.Shutdown();
+            Environment.Exit(0);
         }
 
 
