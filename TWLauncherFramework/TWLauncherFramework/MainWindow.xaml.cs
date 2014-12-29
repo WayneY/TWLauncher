@@ -27,8 +27,8 @@ namespace TWLauncherFramework
     {
         ObservableCollection<modPack> mods = new ObservableCollection<modPack>();
         const string modlistpath = @".\modlist.txt";
-        const string datapath = @".\data\";
-        const string blankimage = "blank.png";
+        string datapath = Directory.GetCurrentDirectory() + "\\data\\";
+        const string blankimage = "pack://application:,,,/pic/blank.png";
         int imageindex = 0;
         public MainWindow()
         {
@@ -85,6 +85,9 @@ namespace TWLauncherFramework
                     if (File.Exists(datapath + apack + ".png"))
                     {
                         modImage = tools.LoadImage(datapath + apack + ".png");
+                        if (modImage == null) { 
+                        System.Windows.MessageBox.Show("null");
+                        }
                     }
                     else
                     {
@@ -96,32 +99,39 @@ namespace TWLauncherFramework
             Packs.ItemsSource = mods;
 
 
-            ImageList imagelist = new imagelist();
-
-            modPack currentMod = mods[0];
-            if (currentMod != null)
-            {
-           //     leftCB.IsChecked = currentMod.isModActive;
-                leftCB.Content = currentMod.packname;
-                leftImage.Source = currentMod.img;
-
-            }
-            currentMod = mods[1];
-            if (currentMod != null)
-            {
-           //     rightCB.IsChecked = currentMod.isModActive;
-                rightCB.Content = currentMod.packname;
-                rightImage.Source = currentMod.img;
+                
+            if (mods.Count>0){
+                modPack currentMod = mods[0];
+                if (currentMod != null)
+                {
+                    ObservableCollection<modPack> cmod = new ObservableCollection<modPack>();
+                    cmod.Add(currentMod);
+                    first_mods_in_image.ItemsSource = cmod;
+          
+                }
             }
              
+            if (mods.Count>1){
+                modPack currentMod = mods[1];
+            if (currentMod != null)
+            {
+
+                ObservableCollection<modPack> cmod = new ObservableCollection<modPack>();
+                cmod.Add(currentMod);
+                second_mods_in_image.ItemsSource = cmod;
+            }
+            }
         }
 
         private void prev_Click(object sender, RoutedEventArgs e)
         {
-            leftCB.Visibility = Visibility.Visible;
-            leftImage.Visibility = Visibility.Visible;
-            rightCB.Visibility = Visibility.Visible;
-            rightImage.Visibility = Visibility.Visible;
+            //leftCB.Visibility = Visibility.Visible;
+            //leftImage.Visibility = Visibility.Visible;
+            //rightCB.Visibility = Visibility.Visible;
+            //rightImage.Visibility = Visibility.Visible;
+            first_mods_in_image.Visibility = Visibility.Visible;
+            second_mods_in_image.Visibility = Visibility.Visible;
+
             imageindex -= 1;
 
             if (imageindex < 0)
@@ -136,8 +146,11 @@ namespace TWLauncherFramework
                 if (currentMod != null)
                 {
                  //   rightCB.IsChecked = currentMod.isModActive;
-                    rightCB.Content = currentMod.packname;
-                    rightImage.Source = currentMod.img;
+                    //rightCB.Content = currentMod.packname;
+                    //rightImage.Source = currentMod.img;
+                    ObservableCollection<modPack> cmod = new ObservableCollection<modPack>();
+                    cmod.Add(currentMod);
+                    second_mods_in_image.ItemsSource = cmod;
                 }
             }
 
@@ -148,14 +161,18 @@ namespace TWLauncherFramework
                 if (currentMod != null)
                 {
                  //   leftCB.IsChecked = currentMod.isModActive;
-                    leftCB.Content = currentMod.packname;
-                    leftImage.Source = currentMod.img;
+                    //leftCB.Content = currentMod.packname;
+                    //leftImage.Source = currentMod.img;
+                    ObservableCollection<modPack> cmod = new ObservableCollection<modPack>();
+                    cmod.Add(currentMod);
+                    first_mods_in_image.ItemsSource = cmod;
                 }
             }
             else
             {
-                leftCB.Visibility = Visibility.Hidden;
-                leftImage.Visibility = Visibility.Hidden;
+                //leftCB.Visibility = Visibility.Hidden;
+                //leftImage.Visibility = Visibility.Hidden;
+                first_mods_in_image.Visibility = Visibility.Hidden;
             }
 
 
@@ -163,10 +180,12 @@ namespace TWLauncherFramework
 
         private void next_Click(object sender, RoutedEventArgs e)
         {
-            leftCB.Visibility = Visibility.Visible;
-            leftImage.Visibility = Visibility.Visible;
-            rightCB.Visibility = Visibility.Visible;
-            rightImage.Visibility = Visibility.Visible;
+            //leftCB.Visibility = Visibility.Visible;
+            //leftImage.Visibility = Visibility.Visible;
+            //rightCB.Visibility = Visibility.Visible;
+            //rightImage.Visibility = Visibility.Visible;
+            first_mods_in_image.Visibility = Visibility.Visible;
+            second_mods_in_image.Visibility = Visibility.Visible;
             
             imageindex += 1;
             
@@ -181,8 +200,11 @@ namespace TWLauncherFramework
                 if (currentMod != null)
                 {
                  //   leftCB.IsChecked = currentMod.isModActive;
-                    leftCB.Content = currentMod.packname;
-                    leftImage.Source = currentMod.img;
+                    //leftCB.Content = currentMod.packname;
+                    //leftImage.Source = currentMod.img;
+                    ObservableCollection<modPack> cmod = new ObservableCollection<modPack>();
+                    cmod.Add(currentMod);
+                    first_mods_in_image.ItemsSource = cmod;
                 }
             }
 
@@ -193,14 +215,18 @@ namespace TWLauncherFramework
                 if (currentMod != null)
                 {
                  //   rightCB.IsChecked = currentMod.isModActive;
-                    rightCB.Content = currentMod.packname;
-                    rightImage.Source = currentMod.img;
+                    //rightCB.Content = currentMod.packname;
+                    //rightImage.Source = currentMod.img;
+                    ObservableCollection<modPack> cmod = new ObservableCollection<modPack>();
+                    cmod.Add(currentMod);
+                    second_mods_in_image.ItemsSource = cmod;
                 }
             }
             else
             {
-                rightCB.Visibility = Visibility.Hidden;
-                rightImage.Visibility = Visibility.Hidden;
+                //rightCB.Visibility = Visibility.Hidden;
+                //rightImage.Visibility = Visibility.Hidden;
+                second_mods_in_image.Visibility = Visibility.Hidden;
             }
         }
 
@@ -323,8 +349,10 @@ namespace TWLauncherFramework
             Packs.Visibility = Visibility.Hidden;
             up.Visibility = Visibility.Hidden;
             down.Visibility = Visibility.Hidden;
-            leftImage.Visibility = Visibility.Visible;
-            rightImage.Visibility = Visibility.Visible;
+            //leftImage.Visibility = Visibility.Visible;
+            //rightImage.Visibility = Visibility.Visible;
+            first_mods_in_image.Visibility = Visibility.Visible;
+            second_mods_in_image.Visibility = Visibility.Visible;
             ImageGrid.Visibility = Visibility.Visible;
             prev.Visibility = Visibility.Visible;
             next.Visibility = Visibility.Visible;
@@ -335,11 +363,17 @@ namespace TWLauncherFramework
             Packs.Visibility = Visibility.Visible;
             up.Visibility = Visibility.Visible;
             down.Visibility = Visibility.Visible;
-            leftImage.Visibility = Visibility.Hidden;
-            rightImage.Visibility = Visibility.Hidden;
+            //leftImage.Visibility = Visibility.Hidden;
+            //rightImage.Visibility = Visibility.Hidden;
             ImageGrid.Visibility = Visibility.Hidden;
             prev.Visibility = Visibility.Hidden;
             next.Visibility = Visibility.Hidden;
+        }
+
+        private void close_window_Click(object sender, RoutedEventArgs e)
+        {
+            tools.write_back_to_modlist(modlistpath, mods);
+
         }
 
 
@@ -423,7 +457,7 @@ namespace TWLauncherFramework
         }
 
         public static bool check_is_mod(string filename){
-            const int PACKTYPE_MOD = 12;
+            const int PACKTYPE_MOD = 3;
             byte[] buffer = new byte[8];
             try{
                 using(FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read)){
@@ -439,7 +473,7 @@ namespace TWLauncherFramework
             {
                 return true;
             }
-            return true;
+            return false;
         }
 
         public static void write_back_to_modlist(string filename, ObservableCollection<modPack> mods)
@@ -459,7 +493,8 @@ namespace TWLauncherFramework
         {
             BitmapImage bitmap = new BitmapImage();
             bitmap.BeginInit();
-            bitmap.UriSource = new Uri(filename.Replace("\\", "/"),UriKind.Relative);
+            //bitmap.UriSource = new Uri(filename.Replace("\\", "/"),UriKind.Relative);
+            bitmap.UriSource = new Uri(filename.Replace("\\", "/"));
             bitmap.EndInit();
             return bitmap;
         }

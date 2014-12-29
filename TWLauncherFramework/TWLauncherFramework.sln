@@ -6,9 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWLauncherFramework", "TWLauncherFramework\TWLauncherFramework.csproj", "{CAA556D4-984B-448E-B3E0-B9D103DEBD44}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8FCC4AF3-E4C0-44C0-ACBE-6448D4FE3AD5}"
-	ProjectSection(SolutionItems) = preProject
-		blank.png = blank.png
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
