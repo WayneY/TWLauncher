@@ -5,7 +5,9 @@
         WindowStyle="None"
         MouseDown="Window_MouseDown"
         Closing="Window_Closing"
-        Title="MainWindow" Height="650" Width="800">
+        Title="Total War:Rome II Launcher" Height="650" Width="800"
+        WindowStartupLocation="CenterScreen"
+        Icon="pack://application:,,,/pic/clanlong.ico">
     <Window.Background>
         <ImageBrush ImageSource="pic/background.png"/>
     </Window.Background>

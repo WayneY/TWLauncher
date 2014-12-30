@@ -17,6 +17,7 @@ using System.Collections.ObjectModel;
 using System.Threading;
 using System.Diagnostics;
 using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 
 namespace TWLauncherFramework
 {
@@ -26,16 +27,26 @@ namespace TWLauncherFramework
     public partial class MainWindow : Window
     {
         ObservableCollection<modPack> mods = new ObservableCollection<modPack>();
-        const string modlistpath = @"%USERPROFILE%\AppData\Roaming\The Creative Assembly\Rome2\scripts\";
+        string modlistpath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)+"\\AppData\\Roaming\\The Creative Assembly\\Rome2\\scripts\\user.script.txt";
         string datapath = Directory.GetCurrentDirectory() + "\\data\\";
         const string blankimage = "pack://application:,,,/pic/blank.png";
         const string exeName = "Rome2";
         int imageindex = 0;
         public MainWindow()
         {
+            CheckEnvironment();
             InitializeComponent();
             LoadPacks();
             
+        }
+
+        void CheckEnvironment()
+        {
+            if (!Directory.Exists(datapath))
+            {
+                System.Windows.MessageBox.Show("没有找到 data 文件夹！请确认程序被安装在了正确的目录下！");
+                Environment.Exit(1);
+            }
         }
 
         void LoadPacks()
@@ -48,9 +59,13 @@ namespace TWLauncherFramework
                 int indx = 0;
                 foreach (string line in lines)
                 {
-                    if (File.Exists(datapath + line + ".pack") && tools.check_is_mod(datapath+ line + ".pack"))
+                    Regex rx = new Regex("mod\\s+\"(?<word>\\w+)\\.pack\"", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                    MatchCollection matches = rx.Matches(line);
+                    GroupCollection groups = matches[0].Groups;
+                    string modname = groups["word"].Value;
+                    if (File.Exists(datapath + modname + ".pack") && tools.check_is_mod(datapath+ modname + ".pack"))
                     {
-                        modlist.Add(line, indx);
+                        modlist.Add(modname, indx);
                         indx += 1;
                     }
                 }
@@ -505,8 +520,17 @@ namespace TWLauncherFramework
             {
                 if (mod.isModActive == true)
                 {
-                    lines.Add(mod.packname);
+                    lines.Add("mod  \""+mod.packname+".pack\"");
                 }
+            }
+            if (!File.Exists(filename))
+            {
+                FileInfo fileInfo = new FileInfo(filename);
+                if (!fileInfo.Exists)
+                {
+                    Directory.CreateDirectory(fileInfo.Directory.FullName);
+                }
+                File.Create(filename).Close();
             }
             File.WriteAllLines(filename, lines);
         }
