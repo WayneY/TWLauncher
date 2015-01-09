@@ -32,6 +32,7 @@ namespace TWLauncherFramework
         const string blankimage = "pack://application:,,,/pic/blank.png";
         const string exeName = "Rome2";
         int imageindex = 0;
+
         public MainWindow()
         {
             CheckEnvironment();
@@ -91,7 +92,10 @@ namespace TWLauncherFramework
                 {
                     modImage = tools.LoadImage(blankimage);
                 }
-                mods.Add(new modPack() { isModActive = true, packname = apack, img = modImage });
+                FileInfo fin = new FileInfo(datapath + apack + ".pack");
+                string last_write_time = fin.LastWriteTime.ToString("u");
+                string filesize = tools.BytesToString(fin.Length);
+                mods.Add(new modPack() { isModActive = true, packname = apack, packdate = last_write_time, packsize = filesize, img = modImage });
             }
             foreach (string apack in packs)
             {
@@ -109,7 +113,13 @@ namespace TWLauncherFramework
                     {
                         modImage = tools.LoadImage(blankimage);
                     }
-                    mods.Add(new modPack() { isModActive = false, packname = apack, img = modImage });
+
+                    FileInfo fin = new FileInfo(datapath + apack + ".pack");
+                    string last_write_time = fin.LastWriteTime.ToString("yyyy-MM-dd HH:mm");
+                    //string last_write_time = fin.LastWriteTime.ToString("u");
+                    string filesize = tools.BytesToString(fin.Length);
+
+                    mods.Add(new modPack() { isModActive = false, packname = apack, packdate = last_write_time, packsize = filesize, img = modImage });
                 }
             }
             Packs.ItemsSource = mods;
@@ -342,24 +352,16 @@ namespace TWLauncherFramework
 
         private void image_show_Click(object sender, RoutedEventArgs e)
         {
-            Packs.Visibility = Visibility.Hidden;
-            up.Visibility = Visibility.Hidden;
-            down.Visibility = Visibility.Hidden;
-            //first_mods_in_image.Visibility = Visibility.Visible;
-            //second_mods_in_image.Visibility = Visibility.Visible;
+            ListGrid.Visibility = Visibility.Hidden;
+
             ImageGrid.Visibility = Visibility.Visible;
-            prev.Visibility = Visibility.Visible;
-            next.Visibility = Visibility.Visible;
+
         }
 
         private void list_show_Click(object sender, RoutedEventArgs e)
         {
-            Packs.Visibility = Visibility.Visible;
-            up.Visibility = Visibility.Visible;
-            down.Visibility = Visibility.Visible;
+            ListGrid.Visibility = Visibility.Visible;
             ImageGrid.Visibility = Visibility.Hidden;
-            prev.Visibility = Visibility.Hidden;
-            next.Visibility = Visibility.Hidden;
         }
 
         private void close_window_Click(object sender, RoutedEventArgs e)
@@ -415,12 +417,19 @@ namespace TWLauncherFramework
 
         private void Mod_manager_Click(object sender, RoutedEventArgs e)
         {
-
+            ModView.Visibility = Visibility.Visible;
+            StartView.Visibility = Visibility.Hidden;
         }
 
         private void back_start_Click(object sender, RoutedEventArgs e)
         {
+            ModView.Visibility = Visibility.Hidden;
+            StartView.Visibility = Visibility.Visible;
+        }
 
+        private void image_show_MouseOver(object sender, MouseEventArgs e)
+        {
+            image_show.Background.S = tools.LoadImage("pic/btn.png");
         }
 
 
@@ -431,6 +440,8 @@ namespace TWLauncherFramework
     {
         public bool isModActive { get; set; }
         public string packname { get; set; }
+        public string packdate { get; set; }
+        public string packsize { get; set; }
         public ImageSource img { get; set; }
     }
 
@@ -553,6 +564,17 @@ namespace TWLauncherFramework
             bitmap.UriSource = new Uri(filename.Replace("\\", "/"));
             bitmap.EndInit();
             return bitmap;
+        }
+
+        public static String BytesToString(long byteCount)
+        {
+            string[] suf = { "B", "KB", "MB", "GB", "TB", "PB", "EB" }; //Longs run out around EB
+            if (byteCount == 0)
+                return "0" + suf[0];
+            long bytes = Math.Abs(byteCount);
+            int place = Convert.ToInt32(Math.Floor(Math.Log(bytes, 1024)));
+            double num = Math.Round(bytes / Math.Pow(1024, place), 1);
+            return (Math.Sign(byteCount) * num).ToString() + suf[place];
         }
     }
 }

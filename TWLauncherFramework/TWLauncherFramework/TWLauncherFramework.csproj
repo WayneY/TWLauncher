@@ -97,20 +97,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="pic\arrow_1.png" />
-    <Resource Include="pic\arrow_2.png" />
-    <Resource Include="pic\background.png" />
     <Resource Include="pic\blank.png" />
-    <Resource Include="pic\button_1.png" />
-    <Resource Include="pic\button_2.png" />
-    <Resource Include="pic\button_3.png" />
     <Resource Include="pic\close.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="pic\check.png" />
-    <Resource Include="pic\checked.png" />
-    <Resource Include="pic\list.png" />
-    <Resource Include="pic\up&amp;down.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="pic\clanlong.ico" />
@@ -147,9 +135,9 @@
     <Resource Include="pic\arrow_up.png" />
     <Resource Include="pic\arrow_up_disabled.png" />
     <Resource Include="pic\arrow_up_mousedown.png" />
-    <Resource Include="pic\MOD名称272x24.png" />
-    <Resource Include="pic\容量80x24.png" />
-    <Resource Include="pic\日期时间160x24.png" />
+    <Resource Include="pic\MOD_name.png" />
+    <Resource Include="pic\size80x24.png" />
+    <Resource Include="pic\datetime160x24.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
