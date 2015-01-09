@@ -413,6 +413,16 @@ namespace TWLauncherFramework
             Environment.Exit(0);
         }
 
+        private void Mod_manager_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void back_start_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
 
 
     }

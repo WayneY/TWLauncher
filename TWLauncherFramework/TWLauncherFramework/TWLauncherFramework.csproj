@@ -115,6 +115,42 @@
   <ItemGroup>
     <Resource Include="pic\clanlong.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="pic\form_start.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="pic\btn128_list.png" />
+    <Resource Include="pic\btn128_list_mousemove.png" />
+    <Resource Include="pic\btn128_thumb.png" />
+    <Resource Include="pic\btn128_thumb_mousemove.png" />
+    <Resource Include="pic\btn128_toggle.png" />
+    <Resource Include="pic\btn128_toggle_mousemove.png" />
+    <Resource Include="pic\btn240_checkforupdate.png" />
+    <Resource Include="pic\btn240_launch_cn.png" />
+    <Resource Include="pic\btn240_launch_en.png" />
+    <Resource Include="pic\btn240_modmanager.png" />
+    <Resource Include="pic\btn_arrow_left.png" />
+    <Resource Include="pic\btn_arrow_left_disabled.png" />
+    <Resource Include="pic\btn_arrow_left_mousedown.png" />
+    <Resource Include="pic\btn_arrow_right.png" />
+    <Resource Include="pic\btn_arrow_right_disabled.png" />
+    <Resource Include="pic\btn_arrow_right_mousedown.png" />
+    <Resource Include="pic\form_modmanager_thumb.png" />
+    <Resource Include="pic\icon_conflictingfile.png" />
+    <Resource Include="pic\icon_non-used.png" />
+    <Resource Include="pic\icon_selected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="pic\arrow_down.png" />
+    <Resource Include="pic\arrow_down_disabled.png" />
+    <Resource Include="pic\arrow_down_mousedown.png" />
+    <Resource Include="pic\arrow_up.png" />
+    <Resource Include="pic\arrow_up_disabled.png" />
+    <Resource Include="pic\arrow_up_mousedown.png" />
+    <Resource Include="pic\MOD名称272x24.png" />
+    <Resource Include="pic\容量80x24.png" />
+    <Resource Include="pic\日期时间160x24.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
