@@ -30,6 +30,7 @@ namespace TWLauncherFramework
         string modlistpath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)+"\\AppData\\Roaming\\The Creative Assembly\\Rome2\\scripts\\user.script.txt";
         string datapath = Directory.GetCurrentDirectory() + "\\data\\";
         const string blankimage = "pack://application:,,,/pic/blank.png";
+        const string interlimagepath = "pack://application:,,,/";
         const string exeName = "Rome2";
         int imageindex = 0;
 
@@ -133,7 +134,7 @@ namespace TWLauncherFramework
                     ObservableCollection<modPack> cmod = new ObservableCollection<modPack>();
                     cmod.Add(currentMod);
                     first_mods_in_image.ItemsSource = cmod;
-          
+                   // prev.IsEnabled = false;
                 }
             }
              
@@ -151,6 +152,8 @@ namespace TWLauncherFramework
             {
                 second_mods_in_image.Visibility = Visibility.Hidden;
             }
+
+            
         }
 
         private void prev_Click(object sender, RoutedEventArgs e)
@@ -159,7 +162,7 @@ namespace TWLauncherFramework
             second_mods_in_image.Visibility = Visibility.Visible;
 
             imageindex -= 1;
-
+            
             if (imageindex < 0)
             {
                 imageindex = 0;
@@ -192,6 +195,8 @@ namespace TWLauncherFramework
             {
                 first_mods_in_image.Visibility = Visibility.Hidden;
             }
+
+            check_leftright_useful();
 
 
         }
@@ -234,6 +239,8 @@ namespace TWLauncherFramework
             {
                 second_mods_in_image.Visibility = Visibility.Hidden;
             }
+
+            check_leftright_useful();
         }
 
         private void up_Click(object sender, RoutedEventArgs e)
@@ -243,7 +250,8 @@ namespace TWLauncherFramework
             {
                 mods.Move(idx, idx - 1);
             }
-            
+
+            check_updown_useful();
         }
 
         private void down_Click(object sender, RoutedEventArgs e)
@@ -254,6 +262,7 @@ namespace TWLauncherFramework
                 mods.Move(idx, idx + 1);
             }
 
+            check_updown_useful();
         }
 
 
@@ -355,6 +364,7 @@ namespace TWLauncherFramework
             ListGrid.Visibility = Visibility.Hidden;
 
             ImageGrid.Visibility = Visibility.Visible;
+            check_leftright_useful();
 
         }
 
@@ -362,6 +372,7 @@ namespace TWLauncherFramework
         {
             ListGrid.Visibility = Visibility.Visible;
             ImageGrid.Visibility = Visibility.Hidden;
+            check_updown_useful();
         }
 
         private void close_window_Click(object sender, RoutedEventArgs e)
@@ -419,6 +430,8 @@ namespace TWLauncherFramework
         {
             ModView.Visibility = Visibility.Visible;
             StartView.Visibility = Visibility.Hidden;
+            check_leftright_useful();
+            check_updown_useful();
         }
 
         private void back_start_Click(object sender, RoutedEventArgs e)
@@ -427,11 +440,55 @@ namespace TWLauncherFramework
             StartView.Visibility = Visibility.Visible;
         }
 
-        private void image_show_MouseOver(object sender, MouseEventArgs e)
+        private void Packs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            image_show.Background.S = tools.LoadImage("pic/btn.png");
+            check_updown_useful();
+
         }
 
+        private void check_updown_useful()
+        {
+            int idx = Packs.SelectedIndex;
+           // System.Windows.MessageBox.Show(idx.ToString());
+            if (idx <= 0)
+            {
+                up.IsEnabled = false;
+            }
+            else
+            {
+                up.IsEnabled = true;
+            }
+            if ((idx >= Packs.Items.Count - 1)||(idx == -1))
+            {
+                down.IsEnabled = false;
+            }
+            else
+            {
+                down.IsEnabled = true;
+            }
+        }
+
+        private void check_leftright_useful()
+        {
+            //System.Windows.MessageBox.Show(imageindex.ToString());
+            if (imageindex <= 0)
+            {
+                prev.IsEnabled = false;
+            }
+            else
+            {
+                prev.IsEnabled = true;
+            }
+            if (imageindex >= mods.Count - 1)
+            {
+                next.IsEnabled = false;
+            }
+            else
+            {
+                next.IsEnabled = true;
+            }
+
+        }
 
 
     }
@@ -576,5 +633,78 @@ namespace TWLauncherFramework
             double num = Math.Round(bytes / Math.Pow(1024, place), 1);
             return (Math.Sign(byteCount) * num).ToString() + suf[place];
         }
+    }
+
+    public class ImageButton : Button
+    {
+        static ImageButton()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(ImageButton),
+                                                     new FrameworkPropertyMetadata(typeof(ImageButton)));
+        }
+
+        #region properties
+
+        public ImageSource HoverImage
+        {
+            get { return (ImageSource)GetValue(HoverImageProperty); }
+            set { SetValue(HoverImageProperty, value); }
+        }
+
+        public ImageSource NormalImage
+        {
+            get { return (ImageSource)GetValue(NormalImageProperty); }
+            set { SetValue(NormalImageProperty, value); }
+        }
+
+        public ImageSource PressedImage
+        {
+            get { return (ImageSource)GetValue(PressedImageProperty); }
+            set { SetValue(PressedImageProperty, value); }
+        }
+
+        public ImageSource DisabledImage
+        {
+            get { return (ImageSource)GetValue(DisabledImageProperty); }
+            set { SetValue(DisabledImageProperty, value); }
+        }
+
+        public ImageSource ShowedImage
+        {
+            get { return (ImageSource)GetValue(ShowedImageProperty); }
+            set { SetValue(DisabledImageProperty, value); }
+        }
+
+        #endregion
+
+        #region dependency properties
+
+        public static readonly DependencyProperty DisabledImageProperty =
+            DependencyProperty.Register(
+                "DisabledImage", typeof(ImageSource), typeof(ImageButton));
+
+        public static readonly DependencyProperty HoverImageProperty =
+            DependencyProperty.Register(
+                "HoverImage", typeof(ImageSource), typeof(ImageButton));
+
+        public static readonly DependencyProperty NormalImageProperty =
+            DependencyProperty.Register(
+                "NormalImage", typeof(ImageSource), typeof(ImageButton));
+
+        public static readonly DependencyProperty PressedImageProperty =
+            DependencyProperty.Register(
+                "PressedImage", typeof(ImageSource), typeof(ImageButton));
+
+        public static readonly DependencyProperty ShowedImageProperty =
+            DependencyProperty.Register(
+                "ShowedImage", typeof(ImageSource), typeof(ImageButton));
+
+        #endregion
+
+        public ImageButton()
+        {
+            
+        }
+
     }
 }
