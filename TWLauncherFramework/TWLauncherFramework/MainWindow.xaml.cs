@@ -268,7 +268,7 @@ namespace TWLauncherFramework
 
         private void Chinese_start_Click(object sender, RoutedEventArgs e)
         {
-            tools.write_back_to_modlist(modlistpath, mods);
+            tools.write_back_to_modlist(modlistpath, mods, datapath);
             Process[] pname = Process.GetProcessesByName(exeName);
             if (pname.Length > 0)
             {
@@ -311,7 +311,7 @@ namespace TWLauncherFramework
 
         private void English_start_Click(object sender, RoutedEventArgs e)
         {
-            tools.write_back_to_modlist(modlistpath, mods);
+            tools.write_back_to_modlist(modlistpath, mods, datapath);
             Process[] pname = Process.GetProcessesByName(exeName);
             if (pname.Length > 0)
             {
@@ -355,7 +355,7 @@ namespace TWLauncherFramework
 
         private void Update_check_Click(object sender, RoutedEventArgs e)
         {
-            tools.write_back_to_modlist(modlistpath, mods);
+            tools.write_back_to_modlist(modlistpath, mods, datapath);
             Process.Start("http://www.clanlong.com/Totalwar_Rome2/1");
         }
 
@@ -392,7 +392,7 @@ namespace TWLauncherFramework
 
         private void Window_Closing(object sender, EventArgs e)
         {
-            tools.write_back_to_modlist(modlistpath, mods);
+            tools.write_back_to_modlist(modlistpath, mods, datapath);
             foreach (Process pname in Process.GetProcessesByName(exeName))
             {
                 pname.Kill();
@@ -591,14 +591,17 @@ namespace TWLauncherFramework
             return false;
         }
 
-        public static void write_back_to_modlist(string filename, ObservableCollection<modPack> mods)
+        public static void write_back_to_modlist(string filename, ObservableCollection<modPack> mods, string datapath)
         {
             List<String> lines = new List<String>();
             foreach (modPack mod in mods)
             {
                 if (mod.isModActive == true)
                 {
-                    lines.Add("mod  \""+mod.packname+".pack\"");
+                    if (File.Exists(datapath + mod.packname + ".pack"))
+                    {
+                        lines.Add("mod  \"" + mod.packname + ".pack\"");
+                    }
                 }
             }
             if (!File.Exists(filename))
@@ -700,11 +703,6 @@ namespace TWLauncherFramework
                 "ShowedImage", typeof(ImageSource), typeof(ImageButton));
 
         #endregion
-
-        public ImageButton()
-        {
-            
-        }
 
     }
 }
