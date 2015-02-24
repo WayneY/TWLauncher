@@ -18,6 +18,7 @@ using System.Threading;
 using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
+using System.Runtime.InteropServices;
 
 namespace TWLauncherFramework
 {
@@ -31,14 +32,16 @@ namespace TWLauncherFramework
         string datapath = Directory.GetCurrentDirectory() + "\\data\\";
         const string blankimage = "pack://application:,,,/pic/blank.png";
         const string interlimagepath = "pack://application:,,,/";
-        const string exeName = "Rome2";
+        //const string exeName = "Rome2";
+        const string exeName = "Attila";
+
         int imageindex = 0;
 
         public MainWindow()
         {
             CheckEnvironment();
             InitializeComponent();
-            LoadPacks();
+           // LoadPacks();
             
         }
 
@@ -319,35 +322,46 @@ namespace TWLauncherFramework
             }
             else
             {
-                if (!Directory.Exists(".\\clanlong"))
-                {
-                    System.Windows.MessageBox.Show("汉化文件缺失!!");
-                    Environment.Exit(0);
-                }
-            checkmd5:
-                if (!tools.md5check(".\\binkw32.dll", "04B064676A2D466887581EA3FBE327EF"))
-                {
-                    if (File.Exists(".\\binkw32_ori.dll"))
-                    {
-                        while (tools.isFileLocked(".\\binkw32_ori.dll"))
-                        {
-                            Thread.Sleep(1000);
-                        }
-                        tools.ReplaceFile(".\\binkw32_ori.dll", ".\\binkw32.dll");
-                        File.Delete(".\\binkw32_ori.dll");
-                        goto checkmd5;
-                    }
-                    else
-                    {
-                        System.Windows.MessageBox.Show("缺少原生binkw32.dll！");
-                        Environment.Exit(0);
-                    }
-                }
-                else
-                {
-                    Process.Start(".\\Rome2.exe");
-                    this.WindowState = WindowState.Minimized;
-                }
+            //    if (!Directory.Exists(".\\clanlong"))
+            //    {
+            //        System.Windows.MessageBox.Show("汉化文件缺失!!");
+            //        Environment.Exit(0);
+            //    }
+            //checkmd5:
+            //    if (!tools.md5check(".\\binkw32.dll", "04B064676A2D466887581EA3FBE327EF"))
+            //    {
+            //        if (File.Exists(".\\binkw32_ori.dll"))
+            //        {
+            //            while (tools.isFileLocked(".\\binkw32_ori.dll"))
+            //            {
+            //                Thread.Sleep(1000);
+            //            }
+            //            tools.ReplaceFile(".\\binkw32_ori.dll", ".\\binkw32.dll");
+            //            File.Delete(".\\binkw32_ori.dll");
+            //            goto checkmd5;
+            //        }
+            //        else
+            //        {
+            //            System.Windows.MessageBox.Show("缺少原生binkw32.dll！");
+            //            Environment.Exit(0);
+            //        }
+            //    }
+            //    else
+            //    {
+                    //Process.Start(".\\Rome2.exe");
+                    //Process.Start(".\\Attila.exe");
+                Process.Start("steam://rungameid/315710");
+                   // this.WindowState = WindowState.Minimized;
+
+
+                Thread.Sleep(1000);
+                Process proc = Process.GetProcessesByName(exeName)[0];
+               // System.Windows.MessageBox.Show(proc.ProcessName + "Start!");
+                uint dwAccl = 0x0002 | 0x0400 | 0x0008 | 0x0010 |0x0020;
+                tools.InjectDLL((IntPtr)tools.OpenProcess(dwAccl, 1, proc.Id), "Loader.dll", proc);
+
+
+           //     }
             }
         }
 
@@ -418,10 +432,10 @@ namespace TWLauncherFramework
                     }
                 }
             }
-            if (File.Exists(".\\Loader.dll"))
-            {
-                File.Delete(".\\Loader.dll");
-            }
+            //if (File.Exists(".\\Loader.dll"))
+            //{
+            //    File.Delete(".\\Loader.dll");
+            //}
             //Application.Current.Shutdown();
             Environment.Exit(0);
         }
@@ -635,6 +649,140 @@ namespace TWLauncherFramework
             int place = Convert.ToInt32(Math.Floor(Math.Log(bytes, 1024)));
             double num = Math.Round(bytes / Math.Pow(1024, place), 1);
             return (Math.Sign(byteCount) * num).ToString() + suf[place];
+        }
+
+        [DllImport("kernel32")]
+        public static extern IntPtr CreateRemoteThread(
+          IntPtr hProcess,
+          IntPtr lpThreadAttributes,
+          uint dwStackSize,
+          UIntPtr lpStartAddress, // raw Pointer into remote process  
+          IntPtr lpParameter,
+          uint dwCreationFlags,
+          out IntPtr lpThreadId
+        );
+
+        [DllImport("kernel32.dll")]
+        public static extern IntPtr OpenProcess(
+            UInt32 dwDesiredAccess,
+            Int32 bInheritHandle,
+            Int32 dwProcessId
+            );
+
+
+        [DllImport("kernel32.dll")]
+        public static extern Int32 CloseHandle(
+        IntPtr hObject
+        );
+
+        [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
+        static extern bool VirtualFreeEx(
+            IntPtr hProcess,
+            IntPtr lpAddress,
+            UIntPtr dwSize,
+            uint dwFreeType
+            );
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Ansi, ExactSpelling = true)]
+        public static extern UIntPtr GetProcAddress(
+            IntPtr hModule,
+            string procName
+            );
+
+        [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
+        static extern IntPtr VirtualAllocEx(
+            IntPtr hProcess,
+            IntPtr lpAddress,
+            uint dwSize,
+            uint flAllocationType,
+            uint flProtect
+            );
+
+
+        [DllImport("kernel32.dll")]
+        static extern bool WriteProcessMemory(
+            IntPtr hProcess,
+            IntPtr lpBaseAddress,
+            string lpBuffer,
+            UIntPtr nSize,
+            out IntPtr lpNumberOfBytesWritten
+        );
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
+        public static extern IntPtr GetModuleHandle(
+            string lpModuleName
+            );
+
+        [DllImport("kernel32", SetLastError = true, ExactSpelling = true)]
+        internal static extern Int32 WaitForSingleObject(
+            IntPtr handle,
+            Int32 milliseconds
+            );
+
+        [DllImport("kernel32.dll")]
+        internal static extern Int32 ResumeThread(
+            IntPtr handle
+            );
+
+         public static void InjectDLL(IntPtr hProcess, String strDLLName, Process proc)
+        {
+            IntPtr bytesout;
+
+            // Length of string containing the DLL file name +1 byte padding
+            Int32 LenWrite = strDLLName.Length + 1;
+            // Allocate memory within the virtual address space of the target process
+            IntPtr AllocMem = (IntPtr)VirtualAllocEx(hProcess, (IntPtr)null, (uint)LenWrite, 0x1000, 0x40); //allocation pour WriteProcessMemory
+
+            // Write DLL file name to allocated memory in target process
+            WriteProcessMemory(hProcess, AllocMem, strDLLName, (UIntPtr)LenWrite, out bytesout);
+            // Function pointer "Injector"
+            UIntPtr Injector = (UIntPtr)GetProcAddress(GetModuleHandle("kernel32.dll"), "LoadLibraryA");
+
+            if (Injector == null)
+            {
+                Console.WriteLine(" Injector Error! \n ");
+                // return failed
+                return;
+            }
+
+            // Create thread in target process, and store handle in hThread
+            IntPtr hThread = (IntPtr)CreateRemoteThread(hProcess, (IntPtr)null, 0, Injector, AllocMem, 0, out bytesout);
+            // Make sure thread handle is valid
+            if (hThread == null)
+            {
+                //incorrect thread handle ... return failed
+                Console.WriteLine(" hThread [ 1 ] Error! \n ");
+                return;
+            }
+            // Time-out is 10 seconds...
+            int Result = WaitForSingleObject(hThread, 10 * 1000);
+            // Check whether thread timed out...
+            if (Result == 0x00000080L || Result == 0x00000102L || Result == 0xFFFFFFFFL)
+            {
+                /* Thread timed out... */
+                Console.WriteLine(" hThread [ 2 ] Error! \n ");
+                // Make sure thread handle is valid before closing... prevents crashes.
+                if (hThread != null)
+                {
+                    //Close thread in target process
+                    CloseHandle(hThread);
+                }
+                return;
+            }
+            // Sleep thread for 1 second
+            Thread.Sleep(1000);
+            // Clear up allocated space ( Allocmem )
+            VirtualFreeEx(hProcess, AllocMem, (UIntPtr)0, 0x8000);
+            // Make sure thread handle is valid before closing... prevents crashes.
+            if (hThread != null)
+            {
+                //Close thread in target process
+                CloseHandle(hThread);
+            }
+            // return succeeded
+            ResumeThread(hThread);
+            System.Windows.MessageBox.Show("Inject!");
+            return;
         }
     }
 
