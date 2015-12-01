@@ -28,12 +28,12 @@ namespace TWLauncherFramework
     public partial class MainWindow : Window
     {
         ObservableCollection<modPack> mods = new ObservableCollection<modPack>();
-        string modlistpath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)+"\\AppData\\Roaming\\The Creative Assembly\\Rome2\\scripts\\user.script.txt";
+        string modlistpath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)+"\\AppData\\Roaming\\The Creative Assembly\\Shogun2\\scripts\\user.script.txt";
         string datapath = Directory.GetCurrentDirectory() + "\\data\\";
         const string blankimage = "pack://application:,,,/pic/blank.png";
         const string interlimagepath = "pack://application:,,,/";
         //const string exeName = "Rome2";
-        const string exeName = "Attila";
+        const string exeName = "Shogun2";
 
         int imageindex = 0;
 
@@ -275,7 +275,7 @@ namespace TWLauncherFramework
             Process[] pname = Process.GetProcessesByName(exeName);
             if (pname.Length > 0)
             {
-                System.Windows.MessageBox.Show("Rome2TW is already running！");
+                System.Windows.MessageBox.Show("Shogun2TW is already running！");
             }
             else
             {
@@ -301,7 +301,7 @@ namespace TWLauncherFramework
                     }
                     tools.ReplaceFile(".\\clanlong\\clanlong_1.bin", ".\\binkw32.dll");
                     tools.ReplaceFile(".\\clanlong\\clanlong_2.bin", ".\\Loader.dll");
-                    Process.Start(".\\Rome2.exe");
+                    Process.Start(".\\Shogun2.exe");
                     this.WindowState = WindowState.Minimized;
                 }
                 catch (IOException x)
@@ -318,7 +318,7 @@ namespace TWLauncherFramework
             Process[] pname = Process.GetProcessesByName(exeName);
             if (pname.Length > 0)
             {
-                System.Windows.MessageBox.Show("Rome2TW is already running!");
+                System.Windows.MessageBox.Show("Shogun2TW is already running!");
             }
             else
             {
